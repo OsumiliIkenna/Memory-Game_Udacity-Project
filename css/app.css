@@ -1,0 +1,553 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #ffffff url('../img/geometry2.png');
+    /* Background pattern from Subtle Patterns */
+    font-family: 'Coda', cursive;
+    font-family: 'Hanuman', serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Hanuman', serif;
+    font-weight: 300;
+}
+
+.stars {
+    color: #8fa578;
+}
+
+
+/*
+ * Styles for the deck of cards
+ */
+
+.deck {
+    max-width: 45%;
+    max-height: 45%;
+    background: linear-gradient(140deg, #02ccba 20%, #aa7ecd 100%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+    overflow: hidden;
+    
+}
+
+.deck .card {
+    min-height: 120px;
+    min-width: 120px;
+    margin: 5px;
+    background: #2e3d49;
+    font-size: 0;
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.deck .card.open {
+    background: #02b3e4;
+    cursor: default;
+    transform: rotateY(110deg);
+    transform: rotateX(20deg);
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0.2s;
+    transform-style: preserve-3d;
+}
+
+.deck .card.open:hover {
+    transform: rotateY(110deg);
+    transform: rotateX(20deg);
+    transform: skewX(120deg);
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0.2s;
+    transform: rotate(-90deg);
+    transform-style: preserve-3d;
+    
+}
+
+.deck .card.show {
+    font-size: 33px;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #02ccba;
+    font-size: 33px;
+}
+
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+    text-align: left;
+    width: 345px;
+    margin-bottom: 10px;
+
+}
+
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+}
+
+.score-panel .restart:hover {
+    color: #a99567;
+    
+}
+
+.modal {
+    display: none;
+}
+
+.modal.opened {
+    display: block;
+}
+
+/* Modal Content */
+
+.modal-content {
+    position: fixed;
+    /*z-index: 1;*/
+    padding-top: 100px;
+    left: 50%;
+    top: 50%;
+    width: 65%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    background: transparent;
+    box-shadow: 0 10px 20px rgba(0,0,0,1);
+    border-radius: 15px;
+    box-sizing: border-box;
+    transition: .5s;
+    z-index: 3;
+
+    /*background-color: #fefefe;*/
+    margin: auto;
+    padding: 10px;
+    border: 2px solid rgb(red, green, blue);
+    border-radius: 20px 20px 20px;
+    background: #ffffff url('../img/geometry2.png');
+    font-family: 'Coda', cursive;
+    font-family: 'Hanuman', serif;
+
+}
+
+.dialog__mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    overflow: hidden;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.congratulation-modal, 
+.congratulation-rating,
+.congratulation-test,
+.congratulation-moves {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Hanuman', serif;
+}
+
+.congratulation-modal {
+    font-size: 2.1em;
+    letter-spacing: 0.2em;
+}
+
+.congratulation-rating {
+    font-size: 1.7em;
+    letter-spacing: 0.05em;
+}
+
+.congratulation-test {
+    font-size: 1.5em;
+
+}
+
+.congratulation-moves {
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #cc3300;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #a99567;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.starRating {
+    color: #9fa578;
+}
+
+#myBtn1.button {
+    background: none;
+    border-top: #3e024a 1px solid;
+    border-right: none;
+    border-left: none;
+    border-bottom: #02274a 1px solid;
+    padding: 0 0 3px 0;
+    font-size: 1.4em;
+}
+
+#myBtn2.button {
+    background: none;
+    border-top: #3e024a 1px solid;
+    border-right: none;
+    border-left: none;
+    border-bottom: #02274a 1px solid;
+    padding: 0 0 3px 0;
+    font-size: 1.4em;
+    fill-opacity: inherit;
+    float: right;
+    content: '\1F63F';
+}
+
+#myBtn1.button:hover,
+#myBtn1.button:focus {
+    border-bottom: #a99567 1px solid;
+    color: #a99567;
+    cursor: pointer;
+}
+
+#myBtn2.button:hover,
+#myBtn2.button:focus {
+    border-bottom: #a99567 1px solid;
+    color: #a99567;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 900px) and (max-width: 1300px) {
+    .deck {
+        max-width: 65%;
+        max-height: 65%;
+        background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+        padding: 25px;
+        
+    }
+
+    .deck .card {
+        max-height: 125px;
+        max-width: 125px;
+        margin: 5px;
+        
+    }
+
+    .score-panel {
+        max-width: 900px; 
+        font-size: 23px;        
+    }
+
+    .modal-content {
+        width: 100%;
+    } 
+
+    .congratulation-modal {
+        font-size: 1.8em;
+        letter-spacing: 0.1em;
+    }
+
+    .congratulation-rating {
+        font-size: 1.5em;
+        letter-spacing: 0.03em;
+    }
+
+    .congratulation-test {
+        font-size: 1.3em;
+
+    }
+
+    .congratulation-moves {
+        font-size: 1.4em;
+        letter-spacing: 0.05em;
+    }
+}
+
+@media screen and (min-width: 681px) and (max-width: 899px) {
+    .deck {
+        max-width: 85%;
+        max-height: 85%;
+        background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+        padding: 25px;
+        
+    }
+
+    .deck .card {
+        max-height: 105px;
+        max-width: 105px;
+        margin: 5px;
+        
+    }
+
+    h1 {
+        font-weight: 300;
+        font-size: 50px;
+    }
+
+    .score-panel {
+        font-weight: 300;
+        max-width: 800px; 
+        font-size: 22px; 
+        box-sizing: border-box;      
+    }
+
+    .modal-content {
+        width: 100%;
+    } 
+
+    .congratulation-modal {
+        font-size: 1.7em;
+        letter-spacing: 0.1em;
+    }
+
+    .congratulation-rating {
+        font-size: 1.4em;
+        letter-spacing: 0.03em;
+    }
+
+    .congratulation-test {
+        font-size: 1.2em;
+
+    }
+
+    .congratulation-moves {
+        font-size: 1.3em;
+        letter-spacing: 0.05em;
+    }
+}
+
+@media screen and (min-width: 381px) and (max-width: 680px) {
+    .deck {
+        max-width: 85%;
+        max-height: 85%;
+        background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+        padding: 15px;
+        
+    }
+
+    .deck .card {
+        min-height: 60px;
+        min-width: 60px;
+        margin: 8px;
+        
+    }
+
+    .score-panel {
+        max-width: 250px; 
+    }
+    
+    h1 {
+        font-weight: 100;
+        font-size: 20px;
+        /*margin-top: 100px;*/
+    }
+
+    .modal-content {
+        width: 100%;
+    } 
+
+    .congratulation-modal {
+        font-size: 1.6em;
+        letter-spacing: 0.1em;
+    }
+
+    .congratulation-rating {
+        font-size: 1.3em;
+        letter-spacing: 0.03em;
+    }
+
+    .congratulation-test {
+        font-size: 1.1em;
+
+    }
+
+    .congratulation-moves {
+        font-size: 1.1em;
+        letter-spacing: 0.05em;
+    }
+}
+
+@media screen and (min-width: 312px) and (max-width: 380px) {
+    .deck {
+        max-width: 88%;
+        max-height: 88%;
+        background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+        padding: 10px;
+        
+    }
+
+    .deck .card {
+        min-height: 55px;
+        min-width: 55px;
+        margin: 5px;
+  
+    }
+
+    .score-panel {
+        max-width: 250px;
+    }
+
+    h1 {
+        font-weight: 100;
+        font-size: 20px;
+    }
+
+    .modal-content {
+        width: 100%;
+    } 
+
+    .congratulation-modal {
+        font-size: 1.5em;
+        letter-spacing: 0.1em;
+    }
+
+    .congratulation-rating {
+        font-size: 1.2em;
+        letter-spacing: 0.03em;
+    }
+
+    .congratulation-test {
+        font-size: 0.9em;
+
+    }
+
+    .congratulation-moves {
+        font-size: 1em;
+        letter-spacing: 0.05em;
+    }
+
+    #myBtn1.button {
+        font-size: 1em;
+
+    }
+
+    #myBtn2.button { 
+        font-size: 1em;
+    }
+
+}   
+
+@media screen and (min-width: 0px) and (max-width: 311px) {
+    .deck {
+        max-width: 90%;
+        max-height: 90%;
+        background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+        padding: 10px;
+        
+    }
+
+    .deck .card {
+        min-height: 50px;
+        min-width: 50px;
+        margin: 5px;
+  
+    }
+
+    .score-panel {
+        max-width: 250px;
+    }
+
+    h1 {
+        font-weight: 150;
+        font-size: 20px;
+    }
+
+    .modal-content {
+        width: 100%;
+    } 
+
+    .congratulation-modal {
+        font-size: 1.5em;
+        letter-spacing: 0.1em;
+    }
+
+    .congratulation-rating {
+        font-size: 1.2em;
+        letter-spacing: 0.03em;
+    }
+
+    .congratulation-test {
+        font-size: 0.9em;
+
+    }
+
+    .congratulation-moves {
+        font-size: 1em;
+        letter-spacing: 0.05em;
+    }
+
+    #myBtn1.button {
+        font-size: 1em;
+
+    }
+
+    #myBtn2.button { 
+        font-size: 1em;
+    }
+
+} 
+
+
